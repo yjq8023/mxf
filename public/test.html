@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>响应测试</h1>
+<script>
+  if('EventSource' in window){
+    var es = new EventSource("http://43.226.33.31:3009/stream");
+    es.onopen = function(){
+      console.log("连接成功");
+    }
+    es.onmessage = function(message){   //默认是message事件，
+      console.log("接收到数据",message);
+    }
+    es.onerror = function(err){
+      console.log("error",err);
+    }
+
+  }
+</script>
+</body>
+</html>
