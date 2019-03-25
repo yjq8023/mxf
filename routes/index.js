@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../config');
-var fs = require('fs');
+var database = require('../databas');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -9,13 +8,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/stock/list', function(req, res, next) {
-    fs.readFile(config.dataUrl, (err, data) => {
-        if (err) {
-          res.send('error');
-          return;
-        }
-        res.send(data.toString());
-    });
+  database.query('SELECT * FROM record', (err, data) => {
+    res.send(data);
+  })
 });
 
 module.exports = router;
