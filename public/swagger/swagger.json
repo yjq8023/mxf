@@ -1,0 +1,114 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "马先锋接口文档",
+    "version": "1.0.0",
+    "title": "马先锋接口文档"
+  },
+  "host": "43.226.33.31:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "stock",
+      "description": "推算结果"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/stock/list": {
+      "get": {
+        "tags": [
+          "stock"
+        ],
+        "summary": "搜索",
+        "description": "",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "path",
+            "description": "股票代码或者股票名称",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "path",
+            "description": "按时间筛选-开始时间",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endTime",
+            "in": "path",
+            "description": "按时间筛选-结束时间",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "请求成功",
+            "schema": {
+              "$ref": "#/definitions/Stock"
+            }
+          },
+          "400": {
+            "description": "请求失败"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Stock": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stock_code": {
+          "type": "string",
+          "description": "股票代码"
+        },
+        "stock_name": {
+          "type": "string",
+          "description": "股票名称"
+        },
+        "update_time": {
+          "type": "string",
+          "description": "更新时间"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
