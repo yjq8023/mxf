@@ -9,7 +9,15 @@ router.get('/', function(req, res, next) {
 
 router.get('/stock/list', function(req, res, next) {
   database.query('SELECT * FROM record', (err, data) => {
-    res.send(data);
+    if(err) {
+      res.send({type: 'error', error: err})
+    } else {
+      res.send({
+        type: 'success',
+        rows: 100,
+        data: data
+      });
+    }
   })
 });
 
