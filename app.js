@@ -87,6 +87,9 @@ module.exports = app;
  * 修改列数据  UPDATE tab_name SET  col_name = new_col_value [WHERE] XX
  * 删除列数据  DELETE FROM tab_name [WHERE] XX
  *
+ * 条件查询
+ * SELECT * FROM tb_name WHERE XX  // * 代表查询出来的结构，当为*表示所有字段，为具体的列名就只有当列
+ *
  *
  * stock => record
  *

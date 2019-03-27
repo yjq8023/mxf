@@ -8,15 +8,41 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/stock/list', function(req, res, next) {
-  database.query('SELECT * FROM record', (err, data) => {
+  let count = 0
+  var params = {
+    search_text: req.query.searchText,
+    start_time: req.query.startTime || 0,
+    end_time: req.query.endTime || new Date().getTime(),
+  }
+
+  let page = {
+    page: req.query.page - 1,
+    rows: req.query.rows
+  }
+
+  let whereSql = ''
+
+  if (params.search_text) {
+    whereSql = ` WHERE (stock_code LIKE '${params.search_text}%' OR stock_name LIKE '%${params.search_text}%')
+                AND (update_time > ${params.start_time} AND update_time < ${params.end_time})
+                LIMIT ${page.page * page.rows}, ${page.rows}`
+  } else {
+    whereSql = ` WHERE  (update_time > ${params.start_time} AND update_time < ${params.end_time})
+                LIMIT ${page.page * page.rows}, ${page.rows}`
+  }
+
+  database.query('SELECT * FROM record ' + whereSql, (err, data) => {
     if(err) {
       res.send({type: 'error', error: err})
     } else {
-      res.send({
-        type: 'success',
-        rows: 100,
-        data: data
-      });
+      database.query(`SELECT COUNT(*) FROM record` + whereSql, (err, data2) => {
+        count = data2[0]['COUNT(*)']
+        res.send({
+          type: 'success',
+          rows: count,
+          data: data
+        });
+      })
     }
   })
 });
