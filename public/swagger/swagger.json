@@ -49,6 +49,20 @@
             "description": "按时间筛选-结束时间",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "description": "当前页",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rows",
+            "in": "path",
+            "description": "单页条数",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
