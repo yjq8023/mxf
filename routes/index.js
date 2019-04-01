@@ -13,6 +13,7 @@ router.get('/stock/list', function(req, res, next) {
     search_text: req.query.searchText,
     start_time: req.query.startTime || 0,
     end_time: req.query.endTime || new Date().getTime(),
+    scenes: req.query.scenes
   }
 
   let page = {
@@ -28,6 +29,11 @@ router.get('/stock/list', function(req, res, next) {
   } else {
     whereSql = ` WHERE  (update_time > ${params.start_time} AND update_time < ${params.end_time})`
   }
+
+  if (params.scenes) {
+    whereSql +=  ` AND num3 = ${params.scenes}`
+  }
+
 
   database.query('SELECT * FROM record ' + whereSql + limitSql, (err, data) => {
     if(err) {
