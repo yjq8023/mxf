@@ -1,4 +1,5 @@
 var watch = require('./src/watch/fs-watch')
+const proxy = require('http-proxy-middleware');
 
 var createError = require('http-errors');
 var express = require('express');
@@ -16,6 +17,8 @@ app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Methods', '*');
   next();
 });
+
+app.use(proxy('/list', { target: 'http://hq.sinajs.cn' }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

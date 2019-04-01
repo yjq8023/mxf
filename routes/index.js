@@ -31,7 +31,7 @@ router.get('/stock/list', function(req, res, next) {
   }
 
   if (params.scenes) {
-    whereSql +=  ` AND num3 = ${params.scenes}`
+    whereSql +=  ` AND num3 = '${params.scenes}'`
   }
 
 
