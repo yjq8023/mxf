@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var database = require('../databas');
+var fs = require('fs')
+var path = require('path')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  // var index = fs.readFileSync(path.join(__dirname, '../public/web/index.html'), {encoding:'binary'});
+  // res.render('index', { title: 'Express' });
+  // res.end(index)
+  res.redirect('/web/index.html');
 });
 
 router.get('/stock/list', function(req, res, next) {

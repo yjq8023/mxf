@@ -1,5 +1,6 @@
 var watch = require('./src/watch/fs-watch')
 const proxy = require('http-proxy-middleware');
+const ejs = require('ejs');
 
 var createError = require('http-errors');
 var express = require('express');
@@ -21,8 +22,9 @@ app.all('*', function (req, res, next) {
 app.use(proxy('/list', { target: 'http://hq.sinajs.cn' }));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'public/web'));
+app.engine('.html', ejs.__express)
+app.set('view engine', 'html');
 
 app.use(logger('dev'));
 app.use(express.json());
