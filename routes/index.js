@@ -44,8 +44,10 @@ router.get('/stock/list', function(req, res, next) {
     if(err) {
       res.send({type: 'error', error: err})
     } else {
-      database.query(`SELECT COUNT(*) FROM record` + whereSql, (err, data2) => {
-        if (err) {return}
+      database.query(`SELECT COUNT(*) FROM stock` + whereSql, (err, data2) => {
+        if (err) {
+          res.send({type: 'error', error: err})
+        }
         count = data2[0]['COUNT(*)']
         res.send({
           type: 'success',
