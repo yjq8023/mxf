@@ -29,18 +29,18 @@ router.get('/stock/list', function(req, res, next) {
   let whereSql = ''
   let limitSql = ` LIMIT ${page.page * page.rows}, ${page.rows}`
   if (params.search_text) {
-    whereSql = ` WHERE (stock_code LIKE '${params.search_text}%' OR stock_name LIKE '%${params.search_text}%')
-                AND (update_time > ${params.start_time} AND update_time < ${params.end_time})`
+    whereSql = ` WHERE (stockCode LIKE '${params.search_text}%' OR stockName LIKE '%${params.search_text}%')
+                AND (updateTime > ${params.start_time} AND updateTime < ${params.end_time})`
   } else {
-    whereSql = ` WHERE  (update_time > ${params.start_time} AND update_time < ${params.end_time})`
+    whereSql = ` WHERE  (updateTime > ${params.start_time} AND updateTime < ${params.end_time})`
   }
 
   if (params.scenes) {
-    whereSql +=  ` AND num3 = '${params.scenes}'`
+    whereSql +=  ` AND type = '${params.scenes}'`
   }
 
 
-  database.query('SELECT * FROM record ' + whereSql + limitSql, (err, data) => {
+  database.query('SELECT * FROM stock ' + whereSql + limitSql, (err, data) => {
     if(err) {
       res.send({type: 'error', error: err})
     } else {
