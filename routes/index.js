@@ -22,8 +22,8 @@ router.get('/stock/list', function(req, res, next) {
   }
 
   let page = {
-    page: req.query.page - 1,
-    rows: req.query.rows
+    page: req.query.page ?  req.query.page - 1 : 0,
+    rows: req.query.rows || 10
   }
 
   let whereSql = ''
